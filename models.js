@@ -4,30 +4,20 @@ const mongoose = require('mongoose');
 
 const bcrypt = require('bcryptjs');
 
-const vehiclesSchema = mongoose.Schema({
-	name: {type: String, required: true},
-	year: {type: Number, required: true},
-	make: {type: String, required: true},
-	model: {type: String, required: true}, 
-	engine: {type: String},
-});
 
 const usersSchema = mongoose.Schema({
 	firstName: {type: String, required: true},
 	lastName: {type: String, required: true},
 	username: {type: String, required: true},
 	password: {type: String, required: true},
-	vehicles: [vehiclesSchema],
 });
 
-const maintenanceSchema = mongoose.Schema({
+const eventsSchema = mongoose.Schema({
 	username: {type: String, required: true},
-	vehicleName: {type: String, required: true},
-	type: {type: String, required: true},
-	mileage: {type: String, required: true},
-	date: {type: String, required: true},
-	nextScheduled: {type: String},
-	notes: {type: String},
+	eventName: {type: String, required: true},
+	returnDateAndTime: {type: String, required: true},
+	contactNumber: {type: String, required: true},
+	description: {type: String, required: true},
 });
 
 usersSchema.virtual('fullName').get(function() {
@@ -37,23 +27,20 @@ usersSchema.virtual('fullName').get(function() {
 usersSchema.methods.serialize = function() {
 	return {
 		name: this.fullName,
-		username: this.username,
-		vehicles: this.vehicles
+		username: this.username
 	}
 };
 
 usersSchema.methods.validatePassword = function(password) {
-  return bcrypt.compareSync(password, this.password);
+	return bcrypt.compareSync(password, this.password);
 };
 
 usersSchema.statics.hashPassword = function(password) {
-  return bcrypt.hash(password, 10);
+	return bcrypt.hash(password, 10);
 };
 
 const Users = mongoose.model('Users', usersSchema);
 
-const Vehicles = mongoose.model('Vehicles', vehiclesSchema);
+const Events = mongoose.model('Events', eventsSchema);
 
-const Maintenance = mongoose.model('Maintenance', maintenanceSchema)
-
-module.exports = {Users, Vehicles, Maintenance}
+module.exports = {Users, Events};

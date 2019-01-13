@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const {Users, Vehicles, Maintenance} = require('./models');
+const {Users, Events} = require('./models');
 
 const passport = require('passport');
 
@@ -59,7 +59,7 @@ router.use(passport.authenticate('jwt', { session: false }));
 // });
 
 
-router.get('/events/:username', (req,res) => {
+router.post('/:username', (req,res) => {
 	
 	if (!(req.params.username)){
 		const message = 'Missing username in request parameters';
@@ -79,13 +79,14 @@ router.get('/events/:username', (req,res) => {
 	.then((events) => res.status(200).json(events))
 	.catch(err=> {
     	console.error(err);
-    	res.status(500).json({message: "Internal server error"});
+    	res.status(500).json({message: 'Sorry, there was an error loading your events'});
     });
 });
 
 
-router.post('/events', (req,res) => {
-	const requiredFields = ['username','eventName', 'returnDateAndTime', 'contactNumber', 'description'];
+router.post('/', (req,res) => {
+	const requiredFields = ['name','username','eventName', 'date', 'returnTime', 
+		'amOrPm', 'utcDateTime', 'contactNumber', 'description'];
 	requiredFields.forEach((field) => {
 		if (!(req.body[field])){
 			console.log(`missing field = ${field}`);
@@ -146,22 +147,27 @@ router.post('/events', (req,res) => {
 // });
 
 
-router.delete('/events/:id', (req,res) => {
+router.delete('/:id', (req,res) => {
 	if(!req.params.id) {
 		return res.status(400).json({message: 'An id number is required to delete an event'})
 	}
 
-	Maintenance.findByIdAndRemove(req.params.id)
-	.then(deletedLog => {
-		if(deletedLog) {
-			return res.status(200).json(deletedLog);
+	Events.findByIdAndRemove(req.params.id)
+	.then(deletedEvent => {
+		if(deletedEvent) {
+			return Events.find({username: deletedEvent.username});
 		}
+		else{
+			res.status(400).json({message: 'Could not delete the requested event'})
+		}
+	})
+	.then(events => {
+		return res.status(200).json(events);
 	})
 	.catch(err=> {
     	console.error(err);
     	res.status(500).json({message: 'Internal server error'});
-    });	
-	
+    });		
 });
 	
 module.exports = router;

@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-const {PORT, DATABASE_URL} = require('./config');
+const {PORT, DATABASE_URL, CLIENT_ORIGIN} = require('./config');
 
 const {Users, Vehicles, Maintenance} = require('./models');
 
@@ -18,7 +18,7 @@ const signupRouter = require('./signupRouter');
 
 const loginRouter = require('./loginRouter');
 
-const usersRouter = require('./usersRouter');
+const eventsRouter = require('./eventsRouter');
 
 const {sendMessage} = require('./sendMessages')
 
@@ -28,9 +28,10 @@ app.use(express.json());
 
 // CORS
 app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
     res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
+
     if (req.method === 'OPTIONS') {
         return res.send(204);
     }
@@ -41,7 +42,7 @@ app.use('/signup', signupRouter);
 
 app.use('/login', loginRouter);
 
-app.use('/users', usersRouter);
+app.use('/events', eventsRouter);
 
 app.use('*', function(req, res) {
 	res.status(404).json({ message: 'Not Found' });

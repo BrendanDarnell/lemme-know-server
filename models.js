@@ -13,9 +13,13 @@ const usersSchema = mongoose.Schema({
 });
 
 const eventsSchema = mongoose.Schema({
+	name: {type: String, required: true},
 	username: {type: String, required: true},
 	eventName: {type: String, required: true},
-	returnDateAndTime: {type: String, required: true},
+	date: {type: String, required: true},
+	returnTime: {type: String, required: true},
+	amOrPm: {type: String, required: true},
+	utcDateTime: {type: String, required: true},
 	contactNumber: {type: String, required: true},
 	description: {type: String, required: true},
 });

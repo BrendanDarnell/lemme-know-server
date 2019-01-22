@@ -5,5 +5,5 @@ exports.TEST_DATABASE_URL =
   process.env.TEST_DATABASE_URL || "mongodb://localhost/test-lemme-know";
 exports.PORT = process.env.PORT || 8080;
 exports.JWT_SECRET = process.env.JWT_SECRET;
-exports.TWILLIO_ID =  process.env.TWILLIO_ID;
-exports.TWILLIO_TOKEN = process.env.TWILLIO_TOKEN;
+exports.TWILIO_ID =  process.env.TWILIO_ID;
+exports.TWILIO_TOKEN = process.env.TWILIO_TOKEN;

@@ -20,9 +20,7 @@ const loginRouter = require('./loginRouter');
 
 const eventsRouter = require('./eventsRouter');
 
-const {sendMessage} = require('./sendMessages')
-
-app.use(express.static('public'));
+const {handleMessages} = require('./sendMessages');
 
 app.use(express.json());
 
@@ -68,15 +66,10 @@ function runServer(databaseUrl, port = PORT) {
 	            	mongoose.disconnect();
 	            	reject(err);
 	          	});
-            // server.on('listening', () => {
-            //     console.log('sending message');
-            //     sendMessage({
-            //       personName: 'Brendan Darnell',
-            //       eventName: 'Skiing',
-            //       description: 'Went backcountry skiing near Bear Lake RMNP'
-            //       });
-            //   });
-      		  
+            server.on('listening', () => {
+                console.log('on listening called');
+                setInterval(handleMessages , 60*1000);
+            }); 
           }
     	);
   	});

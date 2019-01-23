@@ -47,7 +47,7 @@ app.use('*', function(req, res) {
 });
 
 let server;
-				
+let messageInterval;				
 
 function runServer(databaseUrl, port = PORT) {
  	return new Promise((resolve, reject) => {
@@ -68,7 +68,7 @@ function runServer(databaseUrl, port = PORT) {
 	          	});
             server.on('listening', () => {
                 console.log('on listening called');
-                setInterval(handleMessages , 60*1000);
+                messageInterval = setInterval(handleMessages , 60*1000);
             }); 
           }
     	);
@@ -79,6 +79,7 @@ function runServer(databaseUrl, port = PORT) {
 function closeServer() {
  	return mongoose.disconnect().then(() => {
     	return new Promise((resolve, reject) => {
+            clearInterval(messageInterval);
     		console.log('Closing server');
      		server.close(err => {
         		if (err) {

@@ -46,6 +46,8 @@ app.use('*', function(req, res) {
 	res.status(404).json({ message: 'Not Found' });
 });
 
+// declare server and messageInterval in global scope so the can be accessed
+// in closeServer function
 let server;
 let messageInterval;				
 
@@ -66,6 +68,7 @@ function runServer(databaseUrl, port = PORT) {
 	            	mongoose.disconnect();
 	            	reject(err);
 	          	});
+            // when server opens, check every minute for expired events and send messages
             server.on('listening', () => {
                 console.log('on listening called');
                 messageInterval = setInterval(handleMessages , 60*1000);

@@ -32,7 +32,6 @@ router.post('/', (req, res) => {
 		password: {min: 8, max: 40},
 	};
 
-	
 	try {
 		const tooSmall = Object.keys(sizedFields).forEach(field => {
 			if (req.body[field].length < sizedFields[field].min) {

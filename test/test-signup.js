@@ -78,7 +78,6 @@ describe('POST requests to /signup', function(){
 		return closeServer();
 	});
 
-	
 	it('Should create a new user on POST requests', function(){
 		const newUser = generateUserData();
 

@@ -1,4 +1,4 @@
-const 	{TWILIO_ID, TWILIO_TOKEN} = require('./config');
+const {TWILIO_ID, TWILIO_TOKEN} = require('./config');
 
 const client = require('twilio')(TWILIO_ID, TWILIO_TOKEN);
 
@@ -9,7 +9,6 @@ const {Events} = require('./models');
 function findExpiredEvents() {
 	return Events.find()
 		.then(events => {
-			console.log(events);
 			let expiredEvents = [];
 			events.forEach(event => {
 				if(moment(event.utcDateTime).isBefore(moment())) {
@@ -49,6 +48,9 @@ function removeEvent(event) {
 		})
 }
 
+// Checks events collection for events that users have not checked in from on time
+// and sends messages with the twilio api.  If message is sent successfully, it is 
+// deleted from the database.
 function handleMessages() {
 	findExpiredEvents()
 	.then(expiredEvents => {

@@ -115,46 +115,6 @@ describe('/users endpoint', function(){
 	after(function(){
 		return closeServer();
 	});
-
-	
-	// describe('/users/vehicles/add', function() {
-		
-	// 	it('Should add a new vehicle on Post requests', function(){		
-	// 		return chai.request(app)
-	// 			.post('/users/vehicle/add')
-	// 			.send(newVehicle)
-	// 			.then(function(res) {
-	// 				expect(res).to.have.status(201);
-	// 				expect(res).to.be.json;
-	// 				expect(res.body).to.be.a('object');
-	// 		        expect(res.body).to.include.keys('name','username','vehicles');
-	// 		        expect(res.body.username).to.equal(existingUser.username);
-	// 		        expect(res.body.vehicles).to.be.an('array');
-	// 		        expect(res.body.vehicles).to.have.lengthOf(1);
-	// 		        existingUser.vehicles.push(res.body.vehicles[0]);
-	// 		    	return Users.findOne({username: existingUser.username})    
-	// 		    })
-	// 		    .then(function(user) {
-	// 		    	expect(user._id).to.not.be.empty;
-	// 		    	expect(user.username).to.equal(existingUser.username);
-	// 		    	expect(user.firstName).to.equal(existingUser.firstName);
-	// 		    	expect(user.lastName).to.equal(existingUser.lastName);
-	// 		    	expect(user.password).to.equal(existingUser.password);
-	// 		    	expect(user.vehicles).to.have.lengthOf(1);
-	// 		    	user.vehicles.forEach(function(vehicle) {
-	// 		    		let existingVehicle = existingUser.vehicles.find(function(matchingVehicle) {
-	// 		    			return matchingVehicle.name === vehicle.name; 	
-	// 		    		});
-	// 		    		expect(vehicle.name).to.equal(existingVehicle.name);
-	// 		    		expect(vehicle.year).to.equal(existingVehicle.year);
-	// 		    		expect(vehicle.make).to.equal(existingVehicle.make);
-	// 		    		expect(vehicle.model).to.equal(existingVehicle.model);
-	// 		    		expect(vehicle.engine).to.equal(existingVehicle.engine);
-	// 		    	});		
-	// 		    });
-	// 	});	
-	// });
-
 	
 	describe('/events/:username', function() {
 		
@@ -228,50 +188,7 @@ describe('/users endpoint', function(){
 			   	});    
 		});
 	});
-
-	// describe('/users/maintenance/update', function() {
-
-	// 	it('Should update the selected maintenance log', function() {
-
-	// 		existingUser.vehicles.push(newVehicle);
-	// 		existingUser.save();
-
-	// 		return Maintenance.create(newMaint)
-	// 			.then(function(log) {
-	// 				return chai.request(app)
-	// 					.put('/users/maintenance/update')
-	// 					.send({ _id: log._id, notes:'did not replace drain plug', nextScheduled: '158,000', token: token})
-	// 					.then(function(res) {
-	// 						expect(res).to.have.status(200);
-	// 						expect(res).to.be.json;
-	// 						expect(res.body).to.be.an('array');
-	// 						res.body.forEach(function(log) {
-	// 					        expect(log).to.include.keys('username','vehicleName','type','mileage','date',
-	// 					        	'notes','nextScheduled','_id');
-	// 					        expect(log.username).to.equal(newMaint.username);
-	// 					        expect(log.vehicleName).to.equal(newMaint.vehicleName);
-	// 					        expect(log.type).to.equal(newMaint.type);
-	// 					        expect(log.mileage).to.equal(newMaint.mileage);
-	// 					        expect(log.date).to.equal(newMaint.date);
-	// 					        expect(log.notes).to.equal('did not replace drain plug');
-	// 					        expect(log.nextScheduled).to.equal('158,000');
-	// 					        expect(log._id).to.not.be.empty;
-	// 							    });	
-	// 			    		return Maintenance.findOne({_id: res.body[0]._id});
-	// 					})
-	// 					.then(function(log) {
-	// 				        expect(log.username).to.equal(newMaint.username);
-	// 				        expect(log.vehicleName).to.equal(newMaint.vehicleName);
-	// 						expect(log.type).to.equal(newMaint.type);
-	// 				        expect(log.mileage).to.equal(newMaint.mileage);
-	// 				        expect(log.date).to.equal(newMaint.date);
-	// 					    expect(log.notes).to.equal('did not replace drain plug');
-	// 					    expect(log.nextScheduled).to.equal('158,000');
-	// 					    expect(log._id).to.not.be.empty;
-	// 				   	}); 
-	// 			});
-	// 	});
-	// });
+	
 
 	describe('/events/:id', function() {
 

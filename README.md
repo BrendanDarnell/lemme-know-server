@@ -1,44 +1,42 @@
-# Maintain My Ride
+# Lemme Know
 
-Maintain My Ride is an app for do-it-yourselfers who want any easy way to keep track of their vehicle maintenance records.  The app allows users to create an account, add all of their vehicles, and log maintenace records for each vehicle.
+Lemmo Know helps people stay safe while enjoying activities they love.  Users create events for upcoming activities, providing
+some details about what they are doing, when they are expected to return, and a contact's phone number.  If they do no return
+from the event by the specified time, their contact is sent a text asking to check up on the user.
 
 ## Using the App
 
-![login/signup](screenshots/signup.png)
+![landing page](screenshots/landing-page.png)
 
-Create an account or login to an existing account.
+On the landing page, scroll to the bottom to login or click the link to create an account.  To demo the app, the username: DemoUser and password: password can be used to login.
 
-![add vehicle](screenshots/add-vehicle.png)
+![create event](screenshots/create-event.png)
 
-Click the add vehicle button to add a vehicle to the account.
+Click the Create Event link in the navigation bar to add a new event.
 
-![show logs](screenshots/view-maint.png)
+![my events](screenshots/my-events.png)
 
-Click on a vehicle name to show its maintenance logs.
-
-![add maintenance](screenshots/add-maint.png)
-
-Click on the add maintenance button to display a form for maintenance logs.
-
-![update/delete maintenance](screenshots/update-delete.png)
-
-Each maintenance log can be updated or deleted with the click of a button. 
-
-![update maintenance](screenshots/update-maint.png)
-
-Clicking the update button shows a form where the desired changes can be made. 
+The My Events page shows upcoming events and allows users to check-in from events that they have returned from. 
 
 ## Demo
 
-- [Live Demo](https://shrouded-anchorage-97729.herokuapp.com/)
+- [Live Demo](https://sleepy-lake-69131.herokuapp.com/)
 
 ## Technology Used
 
 * Front-End
     * HTML
     * CSS
-    * Javascript
-    * JQuery
+    * Node
+    * React
+    * React Router
+    * Redux
+    * Redux Thunk
+    * Redux Form
+    * Moment
+    * Testing 
+        * Jest
+        * Enzyme
 
 * Back-End
     * Node
@@ -48,12 +46,13 @@ Clicking the update button shows a form where the desired changes can be made.
     * Passport-jwt
     * Jsonwebtoken
     * Bcryptjs
-
-* Testing
-    * Mocha
-    * Chai
-    * Chai-http
-    * Faker
+    * Twilio
+    * Moment
+    * Testing
+        * Mocha
+        * Chai
+        * Chai-http
+        * Faker
 
 ## API Documentation
 
@@ -63,22 +62,16 @@ Clicking the update button shows a form where the desired changes can be made.
 * /login
     * Expect a 200 status with user and token in body, otherwise a 400 status.
 
-* /vehicles/add
-	* Expect a 201 status with user and added vehicle, otherwise a 400 status.
+* /events
+    * Expect a 201 status with an array of events, including the created event, for specified user, otherwise a 400 status.
 
-* /maintenance
-	* Expect a 200 status with maintenance logs for specified vehicles, otherwise a 400 status.
+* /events/:username
+	* Expect a 200 status with an array of events for specified user, otherwise a 400 status.
 
-* /maintenance/add
-	* Expect a 201 status with maintenance logs for specified vehicles (including new log), otherwise a 400 status.
-
-* /maintenance/update
-	* Expect a 200 status with maintenance logs for specified vehicles (with updated log), otherwise a 400 status.
-
-* /maintenance/delete
-	* Expect a 200 status with no response body, otherwise a 400 status.
+* /events/:id
+	* Expect a 200 status with an array of events, excluding the deleted event, otherwise a 400 status.
 
 ## Acknowledgements
 
-Jacob Haskins for guidance, useful insights, and suggestions.
+Jacob Haskins for helping me learn React and providing feedback on this app.
 
